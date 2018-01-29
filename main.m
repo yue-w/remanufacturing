@@ -38,14 +38,16 @@ for j = 1:N
     %In this example, the selling price is the same with RUL
     %m_cell.price = RULs(j);
     m_matrix(1,j)= m_cell;
-    m_matrix(1,j).connectDown = j;
+    %m_matrix(1,j).connectDown = j;
+    m_matrix(1,j).connectDown = N-j+1;
 end
 for j = 1:N
     m_cell.RUL = RULs(j);
     %In this example, the selling price is the same with RUL
     %m_cell.price = RULs(j);
     m_matrix(M,j)= m_cell;
-    m_matrix(M,j).connectUp = j;
+    %m_matrix(M,j).connectUp = j;
+    m_matrix(M,j).connectUp = N-j+1;
 end
 for i= 2:(M-1)
     for j = 1:N
@@ -54,8 +56,10 @@ for i= 2:(M-1)
         %m_cell.price = RULs(j);
         m_matrix(i,j)= m_cell;
         %The following codes connect each cell to the cell below
-        m_matrix(i,j).connectDown = j;
-        m_matrix(i,j).connectUp = j;
+        %m_matrix(i,j).connectDown = j;
+        %m_matrix(i,j).connectUp = j;
+        m_matrix(i,j).connectDown = N-j+1;
+        m_matrix(i,j).connectUp = N-j+1;
     end
 end
 

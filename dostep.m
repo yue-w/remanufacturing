@@ -20,7 +20,11 @@ function m_matrixNew=dostep(m_matrix,rowVal,columnVal,discount)
         else
             if update ==true
                 m_matrix =upDateValues(m_matrix,rowVal,columnVal,connect,valueWithCost); 
+%                 %Test: connect all the cells that have not been connected by a line
+%                 m_matrix = findAndConnectPatches(m_matrix);
             end
+                 %Test: connect all the cells that have not been connected by a line
+                 m_matrix = findAndConnectPatches(m_matrix);           
         end
         if valueWithCost>0
             m_matrix(rowVal,columnVal).buy = true;
@@ -33,7 +37,11 @@ function m_matrixNew=dostep(m_matrix,rowVal,columnVal,discount)
 
             if update ==true
                 m_matrix= upDateValues(m_matrix,rowVal,columnVal,connect,value);
+%                 %Test: connect all the cells that have not been connected by a line
+%                 m_matrix = findAndConnectPatches(m_matrix);               
             end
+                %Test: connect all the cells that have not been connected by a line
+                 m_matrix = findAndConnectPatches(m_matrix);             
     end   
 m_matrixNew = m_matrix;
 end
@@ -222,35 +230,37 @@ function [connect,combinationValue, update] = do4(m_matrix,rowVal,columnVal,disc
             %combination
             m_matrixNew(rowVal,columnVal).connectDown = direction;
             m_matrixNew(rowVal+1,direction).connectUp = columnVal;
+            m_matrixNew = findAndConnectPatches(m_matrixNew);
             potentialTotal = computeTotalScore(m_matrixNew);
+            
         elseif competeColumn == columnVal
             %there is no confliction. compute total score of new
             %combination
             m_matrixNew(rowVal,columnVal).connectDown = direction;
             m_matrixNew(rowVal+1,direction).connectUp = columnVal;
-            potentialTotal = computeTotalScore(m_matrixNew);               
-        else
-            %The cell you want to connect to has already been connected
-            %by others.
-            %Then, change the matrix to the potential direction, and find
-            %a best substitute connection for the brocken connection
-            originalDown = m_matrix(rowVal,columnVal).connectDown;
-            m_matrixNew(rowVal,columnVal).connectDown = direction;
-            m_matrixNew(rowVal+1,direction).connectUp = columnVal;
+            potentialTotal = computeTotalScore(m_matrixNew); 
             
-            %Because of the confliction, break the two original connections 
-            m_matrixNew(rowVal,competeColumn).connectDown = 0;
-            if originalDown > 0    &&  originalDown ~= direction               
-                if m_matrixNew(rowVal+1,originalDown).connectUp == columnVal
-                    m_matrixNew(rowVal+1,originalDown).connectUp = 0;
-                end
-            end
-            [m_matrixNewNew,newRoute,potentialTotal] = findSubstituteRoute(m_matrixNew,rowVal,competeColumn);
+        else       
+               effective = checkEffectiveConnection(m_matrix,rowVal,direction);
+               if effective == true
+                   %The cell you want to connect to has already been connected
+                   %by others.
+                   %Then, change the matrix to the potential direction, and find
+                   %a best substitute connection for the brocken connection                  
+                   [m_matrixNew,newRoute,potentialTotal] = SolveConfliction(m_matrixNew,rowVal,columnVal,direction,competeColumn);
+               else
+                    %there is no confliction. compute total score of new
+                    %combination
+                    m_matrixNew(rowVal,columnVal).connectDown = direction;
+                    m_matrixNew(rowVal+1,direction).connectUp = columnVal;
+                    potentialTotal = computeTotalScore(m_matrixNew);                  
+               end
+
         end
         
        
 
-        if valueMax < potentialTotal
+        if valueMax <= potentialTotal
          %if this new direction has higher total value, update.
             connect = direction;
             combinationValue = compute(m_matrixNew,rowVal,columnVal,connect,discount);
