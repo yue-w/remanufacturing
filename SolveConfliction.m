@@ -15,4 +15,5 @@ function [m_matrixNewNew,newRoute,potentialTotal] = SolveConfliction(m_matrixNew
                 end
             end
             [m_matrixNewNew,newRoute,potentialTotal] = findSubstituteRoute(m_matrixNew,rowVal,competeColumn);
+end
   

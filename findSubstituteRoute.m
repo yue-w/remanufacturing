@@ -8,7 +8,7 @@ function [m_matrixNewNew,newRoute,newTotalScore] = findSubstituteRoute(m_matrixN
     anchor =1;
     N = size(m_matrixNew,2);
     newTotalScore = computeTotalScore(m_matrixNew);
-    while anchor<N
+    while anchor<=N
         column1 = m_matrixNewNew(row+1,anchor).connectUp;
         if column1>0
             column2 = m_matrixNewNew(row,column1).connectDown; 
