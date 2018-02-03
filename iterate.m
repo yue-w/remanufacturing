@@ -16,7 +16,7 @@ function m_matrixNew=iterate(m_matrix,Max,discount)
             m_matrix= dostepLastRow(m_matrix,colVal);
         end
         %Compute the values of each cell according to the current connections
-        m_matrix = updateValues(m_matrix);
+        m_matrix = updateValuesLastRow(m_matrix);
     end
     m_matrixNew=m_matrix;
 end
