@@ -65,11 +65,11 @@ end
 
 m_matrix = modifyInPut(m_matrix);
 
-maxIterate = 100;
+maxIterate = 200;
 %Synchronous
-%m_matrix= iterate(m_matrix,maxIterate,discount);
+m_matrix= iterate(m_matrix,maxIterate,discount);
 %Asynchronous
-m_matrix= iterateSynchronous(m_matrix,maxIterate,discount);
+%m_matrix= iterateSynchronous(m_matrix,maxIterate,discount);
 outPut(m_matrix);
 
 
