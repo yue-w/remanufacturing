@@ -3,6 +3,6 @@
 function costOpen = costOpenCell(columnVal,rowM,columnN)
     %cost = -abs(columnN+1-columnVal)/rowM;
     %cost=-1/rowM;
-    Cost = 3.1;
+    Cost = 1.9;
     costOpen = Cost;
 end

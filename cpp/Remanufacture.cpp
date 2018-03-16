@@ -1,4 +1,3 @@
-//#include "stdafx.h"
 #include <vector>
 #include <stdlib.h>
 #include <string>
@@ -35,21 +34,48 @@ void initData() {
 		matrix[i].val->post->post = (value*)malloc(sizeof(value));
 	}
 }
+
+//Consider probability
+//void asgnData() {
+//	for (int i = 0; i < 16; ++i){
+//		matrix[i].val->score = 1;
+//		matrix[i].val->post->score = 2;
+//		matrix[i].val->post->post->score = 3;
+//	}
+//	double p;
+//	srand((unsigned)time(NULL));
+//	for (int i = 0; i<16; ++i){
+//		p = rand()*1.0 / RAND_MAX;
+//		matrix[i].val->prob = p / 2;
+//		matrix[i].val->post->prob = p;
+//		matrix[i].val->post->post->prob = 1;
+//	}
+//}
+
+//Ignore probability
 void asgnData() {
-	for (int i = 0; i < 16; ++i){
-		matrix[i].val->score = 1;
-		matrix[i].val->post->score = 2;
-		matrix[i].val->post->post->score = 3;
+	for (int i = 0; i < 4; ++i){
+		matrix[i].val->score = i+1;
+		matrix[i+4].val->score = i+1;
+		matrix[i + 8].val->score = i+1;
+		matrix[i + 12].val->score = i+1;
+		matrix[i].val->prob = 1;
+		matrix[i + 4].val->prob = 1;
+		matrix[i + 8].val->prob = 1;
+		matrix[i + 12].val->prob = 1;
+		//matrix[i].val->post->score = 2;
+		//matrix[i].val->post->post->score = 3;
 	}
-	double p;
-	srand((unsigned)time(NULL));
-	for (int i = 0; i<16; ++i){
-		p = rand()*1.0 / RAND_MAX;
-		matrix[i].val->prob = p / 2;
-		matrix[i].val->post->prob = p;
-		matrix[i].val->post->post->prob = 1;
-	}
+	//double p;
+	//srand((unsigned)time(NULL));
+	//for (int i = 0; i<16; ++i){
+	//	p = rand()*1.0 / RAND_MAX;
+	//	matrix[i].val->prob = p / 2;
+	//	matrix[i].val->post->prob = p;
+	//	matrix[i].val->post->post->prob = 1;
+	//}
 }
+
 void printData() {
 	for (int i = 0; i < 16; ++i) {
 		printf("(%d, %d): (%f, %f) (%f,%f) (%f, %f);\t", i / 4, i % 4, matrix[i].val->score, matrix[i].val->prob,
@@ -84,7 +110,10 @@ double MC_cell(int m){
 void initChoice(){
 	for (int i = 0; i < ROW; ++i){
 		for (int j = 0; j < COL; ++j){
-			path[i][j] = to_string(i) + to_string(j);
+			//Connect to the cell below
+			//path[i][j] = to_string(i) + to_string(j);
+			//Connect the diagnal cell
+			path[i][j] = to_string(i) + to_string(COL-j);
 		}
 	}
 	for (int i = 0; i < ROW; ++i) tScore+=MC_cell(i);
