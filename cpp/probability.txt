@@ -1,0 +1,16 @@
+//Consider probability
+//void asgnData() {
+//	for (int i = 0; i < 16; ++i){
+//		matrix[i].val->score = 1;
+//		matrix[i].val->post->score = 2;
+//		matrix[i].val->post->post->score = 3;
+//	}
+//	double p;
+//	srand((unsigned)time(NULL));
+//	for (int i = 0; i<16; ++i){
+//		p = rand()*1.0 / RAND_MAX;
+//		matrix[i].val->prob = p / 2;
+//		matrix[i].val->post->prob = p;
+//		matrix[i].val->post->post->prob = 1;
+//	}
+//}
