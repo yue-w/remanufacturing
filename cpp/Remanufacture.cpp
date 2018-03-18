@@ -46,13 +46,13 @@ void asgnData() {
 		matrix[i + 8].val->prob = 1;
 		matrix[i + 12].val->prob = 1;
 	}
-	for (int i = 0; i < 16; ++i) {
+	for (int i = 0; i < 16; ++i) { 
 		matrix[i].cost = 0;
 	}
 	matrix[6].cost = 3.1;
 	matrix[9].cost = 3.1;
 	//matrix[10].cost = 1.1;
-	matrix[11].cost = 3.1;
+	//matrix[11].cost = 0.3;
 	//matrix[9].cost = 3.1;
 }
 void printData() {
