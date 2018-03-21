@@ -1,7 +1,7 @@
 %Number of row (# of components)
-M=4;
+M=10;
 %Number of column (# of Remaining Useful Year (RUL))
-N=4;
+N=5;
 
 %Array of Remaining Useful Year (RUL)
 RULs = (1:N);
@@ -66,9 +66,9 @@ end
 m_matrix = modifyInPut(m_matrix);
 
 maxIterate = 200;
-%Synchronous
-m_matrix= iterate(m_matrix,maxIterate,discount);
 %Asynchronous
+m_matrix= iterate(m_matrix,maxIterate,discount);
+%Synchronous
 %m_matrix= iterateSynchronous(m_matrix,maxIterate,discount);
 outPut(m_matrix);
 

@@ -23,40 +23,48 @@ struct cell {
 	double score;
 }typedef cell;
 
-int ROW = 4, COL = 4, SIZE = 3, COSTSIZE = 2;
-cell matrix[16];
-double tScore, fChain[4];
-string path[4][4], fPath[4][4];
+
+const int ROW = 4, COL = 4, SCORESIZE = 3, COSTSIZE = 2;
+cell matrix[ROW*COL];
+double tScore, fChain[COL];
+string path[ROW][COL], fPath[ROW][COL];
 
 void initData() {
-	for (int i = 0; i < 16; ++i) {
+	int size = SCORESIZE;
+	value *tmp;
+	for (int i = 0; i < ROW*COL; ++i) {
 		matrix[i].val = (value*)malloc(sizeof(value));
-		matrix[i].val->post = (value*)malloc(sizeof(value));
-		matrix[i].val->post->post = (value*)malloc(sizeof(value));
+		tmp = matrix[i].val;
+		size = SCORESIZE;
+		while (size>0) {
+			tmp->post = (value*)malloc(sizeof(value));
+			tmp = tmp->post;
+			--size;
+		}
 	}
 }
 void asgnData() {
-	for (int i = 0; i < 4; ++i) {
-		matrix[i].val->score = i + 1;
-		matrix[i + 4].val->score = i + 1;
-		matrix[i + 8].val->score = i + 1;
-		matrix[i + 12].val->score = i + 1;
-		matrix[i].val->prob = 1;
-		matrix[i + 4].val->prob = 1;
-		matrix[i + 8].val->prob = 1;
-		matrix[i + 12].val->prob = 1;
+	for (int i = 0; i < COL; ++i) {
+		for (int r = 0; r < ROW; r++)
+		{ 
+			//Assign a score to each cell. The score equals the column
+			matrix[i + r*COL].val->score = i + 1;
+			//Assign possibility
+			matrix[i + r*COL].val->prob = 1;
+		}
+
 	}
-	for (int i = 0; i < 16; ++i) { 
+	for (int i = 0; i < ROW*COL; ++i) {
 		matrix[i].cost = 0;
 	}
-	matrix[6].cost = 3.1;
-	matrix[9].cost = 3.1;
-	//matrix[10].cost = 1.1;
-	//matrix[11].cost = 0.3;
+	//matrix[7].cost = 3;
+	//matrix[9].cost = 3;
+	//matrix[10].cost =1.1;
+	//matrix[14].cost = 1;
 	//matrix[9].cost = 3.1;
 }
 void printData() {
-	for (int i = 0; i < 16; ++i) {
+	for (int i = 0; i < ROW*COL; ++i) {
 		printf("(%d, %d): (%f, %f);\t", i / 4, i % 4, matrix[i].val->score, matrix[i].val->prob);
 		//matrix[i].val->post->score, matrix[i].val->post->prob, matrix[i].val->post->post->score, matrix[i].val->post->post->prob);
 		printf("\n");
@@ -71,23 +79,22 @@ double MC_cell(int m) {
 	value *tmp;
 	//srand((unsigned)time(NULL));
 	for (i = 0; i < 100; ++i) {
-		tmp = matrix[4 * k + l].val;
+		tmp = matrix[COL * k + l].val;
 		count = 0;
 		while (count + 1<ROW) {
 			x = rand()*1.0 / RAND_MAX;
 			for (; x>tmp->prob; tmp = tmp->post);
 			tmpscore = min(tmpscore, tmp->score);
 			count++;
-			tmp = matrix[4 * (path[count][m][0] - 48) + path[count][m][1] - 48].val;
+			tmp = matrix[COL * (path[count][m][0] - 48) + path[count][m][1] - 48].val;
 		}
 		tscore += tmpscore;
 	}
 	tscore /= 100;
-	tmp = matrix[4 * k + l].val;
+	tmp = matrix[COL * k + l].val;
 	count = 0;
-	double pad, buf = tscore;
 	while (count + 1 < ROW) {
-		tscore -= matrix[4 * (path[count][m][0] - 48) + path[count][m][1] - 48].cost;
+		tscore -= matrix[COL * (path[count][m][0] - 48) + path[count][m][1] - 48].cost;
 		count++;
 	}
 	return tscore;
@@ -99,18 +106,26 @@ void initChoice() {
 			fPath[i][j] = path[i][j] = to_string(i) + to_string(j);
 		}
 	}
-	for (int i = 0; i < ROW; ++i) {
+	for (int i = 0; i < COL; ++i) {//COL or ROW?
 		fChain[i] = MC_cell(i);
 		tScore += fChain[i];
 	}
 }
 void perm(string str[], int n, int m) {
-	double tmptScore = 0, tmpScore, tmpChain[4];
+	double tmptScore = 0, tmpScore, tmpChain[COL];//COL?
 	if (n == m) {
-		for (int i = 0; i < ROW; ++i) {
+		for (int i = 0; i < COL; ++i) {//COL or ROW?
 			tmpChain[i] = tmpScore = MC_cell(i);
 			tmptScore += tmpScore>0 ? tmpScore : 0;
-		}
+		}/*
+		 cout << tmptScore<<endl;
+		 for (int i = 0; i < ROW; ++i){
+		 for (int j = 0; j < COL; ++j){
+		 cout << path[i][j]<<" ";
+		 }
+		 cout << endl;
+		 }
+		 system("pause");*/
 		if (tScore < tmptScore) {
 			tScore = tmptScore;
 			for (int i = 0; i < ROW; ++i) {
