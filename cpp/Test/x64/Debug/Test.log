@@ -1,3 +1,4 @@
 ﻿  Remanufacture.cpp
+w:\programming\matlab\ai\reinforcementlearning\remanufacturing\cpp\remanufacture.cpp(128): warning C4244: 'argument': conversion from 'std::chrono::system_clock::rep' to 'unsigned int', possible loss of data
   Test.vcxproj -> W:\Programming\Matlab\AI\ReinforcementLearning\Remanufacturing\cpp\Test\x64\Debug\Test.exe
   Test.vcxproj -> W:\Programming\Matlab\AI\ReinforcementLearning\Remanufacturing\cpp\Test\x64\Debug\Test.pdb (Partial PDB)
