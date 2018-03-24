@@ -1,4 +1,4 @@
-//#include "stdafx.h"
+﻿//#include "stdafx.h"
 #include <vector>
 #include <stdlib.h>
 #include <string>
@@ -9,6 +9,7 @@
 #include <chrono>
 #include <array>
 #include <fstream>
+#include <stdio.h>
 using namespace std;
 
 struct value {
@@ -24,9 +25,9 @@ struct cell {
 	bool block;
 	double score;
 }typedef cell;
- 
+
 //Global variable
-const int ROW = 7, COL = 4, SCORESIZE = 3, COSTSIZE = 2, iter = 100;
+const int ROW = 7, COL = 5, SCORESIZE = 3, COSTSIZE = 2,  MCIter = 2;
 
 
 cell matrix[ROW*COL];
@@ -56,37 +57,49 @@ void asgnData() {
 			matrix[i + r * COL].val->score = i + 1;
 			//Assign possibility
 			matrix[i + r * COL].val->prob = 1;
-			/*
-			if (r == 1) {
-			matrix[i*COL + r].val->score = 1;
-			matrix[i*COL + r].val->prob = 0.8;
-			matrix[i*COL + r].val->post->score = 2;
-			matrix[i*COL + r].val->post->prob = 0.9;
-			matrix[i*COL + r].val->post->post->score = 3;
-			matrix[i*COL + r].val->post->post->prob = 1;
-			}*/
-			//cost
-			
-			matrix[0].cost.score=1.1;
-			//matrix[i*COL+r].cost.prob=1;
-			matrix[0].cost.prob = 1;
-			matrix[0].block = true;
+
+			//matrix[8].cost.score = 3;
+			//matrix[8].cost.prob = 1;
+			//matrix[8].block = true;
+			//matrix[11].cost.score = 3;
+			//matrix[11].cost.prob = 1;
+			//matrix[11].block = true;
+			//matrix[17].cost.score =1;
+			//matrix[17].cost.prob = 1;
+			//matrix[17].block = true;
+
+			//matrix[7].cost.score = 3;
+			//matrix[7].cost.prob = 1;
+			//matrix[7].block = true;
+			//matrix[9].cost.score = 3;
+			//matrix[9].cost.prob = 1;
+			//matrix[9].block = true;
+			//matrix[14].cost.score = 1;
+			//matrix[14].cost.prob = 1;
+			//matrix[14].block = true;
+
+
+			matrix[14].cost.score = 0.1;
+			matrix[14].cost.prob = 0.5;
+			matrix[14].block = true;
+
+			matrix[1].cost.score = 0.1;
+			matrix[1].cost.prob = 0.5;
+			matrix[1].block = true;
+
+			matrix[9].cost.score = 0.1;
+			matrix[9].cost.prob = 0.5;
+			matrix[9].block = true;
+
 		}
 
 	}
-	/*
-	 for (int i = 0; i < ROW*COL; ++i) {
-	 matrix[i].cost = 0;
-	 }
-	 matrix[7].cost = 3;
-	 matrix[9].cost = 3;
-	 //matrix[10].cost =1.1;
-	 matrix[14].cost = 1;
-	 //matrix[9].cost = 3.1;*/
 }
+
 void printData() {
 	for (int i = 0; i < ROW*COL; ++i) {
 		printf("(%d, %d): (%f, %f);\t", i / 4, i % 4, matrix[i].val->score, matrix[i].val->prob);
+		cout << matrix[i].block;
 		//matrix[i].val->post->score, matrix[i].val->post->prob, matrix[i].val->post->post->score, matrix[i].val->post->post->prob);
 		printf("\n");
 	}
@@ -98,8 +111,8 @@ double MC_cell(int m) {
 	double tscore = 0, tmpscore = 1000000, x;
 	int count = 0, j = 0, i = 0, k = path[0][m][0] - 48, l = path[0][m][1] - 48;
 	value *tmp;
-	//srand((unsigned)time(NULL));
-	for (i = 0; i < 100; ++i) {
+	srand((unsigned)time(NULL));
+	for (i = 0; i < MCIter; ++i) {
 		tmp = matrix[COL * k + l].val;
 		count = 0;
 		while (count + 1<ROW) {
@@ -109,28 +122,22 @@ double MC_cell(int m) {
 			count++;
 			tmp = matrix[COL * (path[count][m][0] - 48) + path[count][m][1] - 48].val;
 		}
-		count = 0;
-		while (count + 1 < ROW) {
-			x = rand()*1.0 / RAND_MAX;
-			if (x <= matrix[COL*(path[count][m][0] - 48) + path[count][m][1] - 48].cost.prob) {
-				tscore -= matrix[COL*(path[count][m][0] - 48) + path[count][m][1] - 48].cost.score;
-			}
-			count++;
-		}
 		tscore += tmpscore;
 	}
-	tscore /= 100;
-	tmp = matrix[COL * k + l].val;
+	tscore /= MCIter;
 	count = 0;
-	while (count + 1 < ROW) {
-		tscore -= matrix[COL * (path[count][m][0] - 48) + path[count][m][1] - 48].cost.score*matrix[COL * (path[count][m][0] - 48) + path[count][m][1] - 48].cost.prob;
+	while (count < ROW) {
+		x = rand()*1.0 / RAND_MAX;
+		if (x <= matrix[COL*(path[count][m][0] - 48) + path[count][m][1] - 48].cost.prob) {
+			tscore -= matrix[COL*(path[count][m][0] - 48) + path[count][m][1] - 48].cost.score;
+			cout << matrix[COL*(path[count][m][0] - 48) + path[count][m][1] - 48].cost.score;
+		}
 		count++;
 	}
 	return tscore;
 }
-
 void initChoice(double& tScore, double& oScore)
-{ 
+{
 	for (int i = 0; i < ROW; ++i) {
 		for (int j = 0; j < COL; ++j) {
 			fPath[i][j] = path[i][j] = to_string(i) + to_string(j);
@@ -147,7 +154,7 @@ void initChoice(double& tScore, double& oScore)
 		oScore += fChain[i];
 		if (fChain[i] < 0) {
 			for (int j = 0; j < ROW; ++j) {
-				scost += matrix[j*COL + i].block == false ? storeCost : 0;
+				scost += matrix[(path[i][j][0] - 48)*COL + path[i][j][1] - 48].block == false ? storeCost : 0;
 			}
 		}
 		cout << i << ": " << fChain[i] << endl;
@@ -157,24 +164,30 @@ void initChoice(double& tScore, double& oScore)
 	cout << "Initial: " << tScore << endl;
 }
 void perm(string str[], int n, int m, double& tScore, double& oScore) {
-	double otmpt = 0, tmptScore = 0, tmpScore, *tmpChain = (double*)malloc(COL * sizeof(double)), scost = 0;
+	double otmpt = 0, tmptScore = 0, tmpScore, *tmpChain = (double*)malloc(COL * sizeof(double)), scost = 0, tmpscost = 0;
 	if (n == m) {
 		for (int i = 0; i < COL; ++i) {
+			tmpscost = 0;
 			tmpChain[i] = tmpScore = MC_cell(i);
 			otmpt += tmpScore;
 			tmptScore += tmpScore>0 ? tmpScore : 0;
-			if (fChain[i] < 0) {
+			if (tmpChain[i] < 0) {
 				for (int j = 0; j < ROW; ++j) {
-					scost += matrix[j*COL + i].block == false ? storeCost : 0;
+					tmpscost += matrix[(path[i][j][0] - 48)*COL + path[i][j][1] - 48].block == false ? storeCost : 0;
 				}
 			}
-			//tmptScore -= scost;
+			scost += tmpscost;
+			tmptScore -= tmpscost;
 		}
 		if (tScore < tmptScore) {
 			tScore = tmptScore;
-			if (tScore == 9) cout << scost;
 			oScore = otmpt;
 			totalSC = scost;
+			if (scost == 0.4) {
+				for (int i = 0; i < COL; ++i) {
+					cout << fChain[i] << endl;
+				}
+			}
 			for (int i = 0; i < ROW; ++i) {
 				for (int j = 0; j < COL; ++j) {
 					fPath[i][j] = path[i][j];
@@ -193,14 +206,13 @@ void perm(string str[], int n, int m, double& tScore, double& oScore) {
 	}
 }
 void Choice(double& tScore, double& oScore) {
+	printData();
 	for (int i = 0; i < ROW; ++i) {
 		perm(path[i], 0, COL, tScore, oScore);
 	}
+	double tmpZ = 0;
 	for (int i = 0; i < COL; ++i) {
 		cout << i << ": " << fChain[i] << endl;
-		if (fChain[i] < 0) {
-			cout << i;
-		}
 	}
 	cout << "Total score with optimization: " << tScore << endl;
 	cout << "Total score without optimization: " << oScore << endl;
@@ -209,31 +221,19 @@ void Choice(double& tScore, double& oScore) {
 
 int main()
 {
-	//initData();
-	//asgnData();
-	//printData();
-	//initChoice();
-	//Choice();
-	//for (int i = 0; i < ROW; ++i) {
-	//	for (int j = 0; j < COL; ++j) {
-	//		cout << fPath[i][j] << " ";
-	//	}
-	//	cout << endl;
-	//}
-
 	ofstream myfileOpt;
 	ofstream myfileNonOpt;
 	myfileOpt.open("opt.txt");
 	myfileNonOpt.open("nonOpt.txt");
 
 	//Total iteration numbers
-	int totalIteraNumber = 1;
+	int totalIteraNumber = 100;
 	//Total score without optimization
 	double tScoreNonOpt = 0;
 	//Total score with optimization
 	double tScoreOpt = 0;
 	//step for number of summation
-	int step = 1;
+	int step = 10;
 
 	//Do the optimization for N times, and average the total score of these N times 
 	for (int N = 1; N <= totalIteraNumber; )
@@ -249,14 +249,15 @@ int main()
 			double oScore = 0;
 			initData();
 			asgnData();
-			initChoice(tScore,  oScore);
-			Choice(tScore,  oScore);
+			initChoice(tScore, oScore);
+			tScoreNonOpt += tScore;
+			Choice(tScore, oScore);
 			tScoreOpt += tScore;
-			tScoreNonOpt += oScore;
+			
 		}
 		//Average the total score of these N times
-		double AvgtScoreOpt = tScoreOpt / N;
-		double AvgtScoreNonOpt = tScoreNonOpt / N;
+		double AvgtScoreOpt = tScoreOpt / double(N);
+		double AvgtScoreNonOpt = tScoreNonOpt / double(N);
 		N += step;
 		myfileOpt << AvgtScoreOpt << endl;
 		myfileNonOpt << AvgtScoreNonOpt << endl;
