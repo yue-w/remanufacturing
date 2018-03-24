@@ -19,6 +19,7 @@ discount = 1; %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
             if m_matrixNew(row,columnVal).blocked == true
                 cost = costOpenCell(0,0,0);
             end
+            
         end
         if (row>0 && columnVal>0)
             temV = -cost + compute(m_matrixNew,row,columnVal,anchor,discount);

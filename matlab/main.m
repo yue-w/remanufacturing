@@ -1,5 +1,5 @@
 %Number of row (# of components)
-M=10;
+M=7;
 %Number of column (# of Remaining Useful Year (RUL))
 N=5;
 
@@ -18,7 +18,7 @@ m_cell.connectDown = 0;
 m_cell.blocked = false;
 m_cell.buy = false;
 m_cell.RUL = 0;
-%m_cell.price = 0;
+m_cell.price = 0;
 
 m_matrix(M,N)=m_cell;
 
@@ -65,7 +65,7 @@ end
 
 m_matrix = modifyInPut(m_matrix);
 
-maxIterate = 200;
+maxIterate = 100;
 %Asynchronous
 m_matrix= iterate(m_matrix,maxIterate,discount);
 %Synchronous

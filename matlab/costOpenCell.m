@@ -1,8 +1,8 @@
 %This cost can be changed to constant
-%rowM is the number of row, rowM is the number of column
-function costOpen = costOpenCell(columnVal,rowM,columnN)
+%rowM is the number of row, columnN is the number of column
+function costOpen = costOpenCell(m_matrix,rowM,columnN)
     %cost = -abs(columnN+1-columnVal)/rowM;
     %cost=-1/rowM;
-    Cost = 0.1;
-    costOpen = Cost;
+    %Cost = 0.1;
+    costOpen = m_matrix(rowM,columnN).price;
 end
