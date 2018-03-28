@@ -27,7 +27,7 @@ struct cell {
 }typedef cell;
 
 //Global variable
-const int ROW = 7, COL = 5, SCORESIZE = 3, COSTSIZE = 2,  MCIter = 2;
+const int ROW = 7, COL = 5, SCORESIZE = 3, COSTSIZE = 2,  MCIter = 100;
 
 
 cell matrix[ROW*COL];
@@ -58,48 +58,56 @@ void asgnData() {
 			//Assign possibility
 			matrix[i + r * COL].val->prob = 1;
 
-			//matrix[8].cost.score = 3;
-			//matrix[8].cost.prob = 1;
-			//matrix[8].block = true;
-			//matrix[11].cost.score = 3;
-			//matrix[11].cost.prob = 1;
-			//matrix[11].block = true;
-			//matrix[17].cost.score =1;
-			//matrix[17].cost.prob = 1;
-			//matrix[17].block = true;
-
-			//matrix[7].cost.score = 3;
-			//matrix[7].cost.prob = 1;
-			//matrix[7].block = true;
-			//matrix[9].cost.score = 3;
-			//matrix[9].cost.prob = 1;
-			//matrix[9].block = true;
-			//matrix[14].cost.score = 1;
-			//matrix[14].cost.prob = 1;
-			//matrix[14].block = true;
-
-
-			matrix[14].cost.score = 0.1;
-			matrix[14].cost.prob = 0.5;
-			matrix[14].block = true;
-
-			matrix[1].cost.score = 0.1;
-			matrix[1].cost.prob = 0.5;
-			matrix[1].block = true;
-
-			matrix[9].cost.score = 0.1;
-			matrix[9].cost.prob = 0.5;
-			matrix[9].block = true;
-
 		}
 
 	}
+
+	for (int col = 1; col <= COL; col++)
+	{
+		//Cylinder block
+		//Assign the price of buying new components
+		matrix[col - 1 + 0* COL].cost.score = 0.42;
+		//Assign the probability the part will be missing
+		matrix[col - 1 + 0 *  COL].cost.prob = 0.2;
+		matrix[col - 1 + 0 *  COL].block = true;
+
+		//Cylinder head
+		matrix[col - 1 + 1*  COL].cost.score = 0.25;
+		matrix[col - 1 + 1  * COL].cost.prob = 0.2;
+		matrix[col - 1 + 1  * COL].block = true;
+
+		//Flywhell housing
+		matrix[col - 1 + 2 * COL].cost.score = 0.03;
+		matrix[col - 1 + 2  * COL].cost.prob = 0.2;
+		matrix[col - 1 + 2  * COL].block = true;
+
+		//Gearbox
+		matrix[col - 1 + 3  * COL].cost.score = 0.03;
+		matrix[col - 1 + 3  * COL].cost.prob = 0.2;
+		matrix[col - 1 + 3  * COL].block = true;
+
+		//COnnecting-rod
+		matrix[col - 1 + 4  * COL].cost.score = 0.07;
+		matrix[col - 1 + 4 * COL].cost.prob = 0.2;
+		matrix[col - 1 + 4 * COL].block = true;
+
+		//Crankshaft
+		matrix[col - 1 + 5  * COL].cost.score = 0.17;
+		matrix[col - 1 + 5 * COL].cost.prob = 0.2;
+		matrix[col - 1 + 5  * COL].block = true;
+
+		//Fly whell
+		matrix[col - 1 + 6 *  COL].cost.score = 0.02;
+		matrix[col - 1 + 6 *  COL].cost.prob = 0.2;
+		matrix[col - 1 + 6 *  COL].block = true;
+	}
+
 }
 
 void printData() {
 	for (int i = 0; i < ROW*COL; ++i) {
 		printf("(%d, %d): (%f, %f);\t", i / 4, i % 4, matrix[i].val->score, matrix[i].val->prob);
-		cout << matrix[i].block;
+		////cout << matrix[i].block;
 		//matrix[i].val->post->score, matrix[i].val->post->prob, matrix[i].val->post->post->score, matrix[i].val->post->post->prob);
 		printf("\n");
 	}
@@ -130,7 +138,7 @@ double MC_cell(int m) {
 		x = rand()*1.0 / RAND_MAX;
 		if (x <= matrix[COL*(path[count][m][0] - 48) + path[count][m][1] - 48].cost.prob) {
 			tscore -= matrix[COL*(path[count][m][0] - 48) + path[count][m][1] - 48].cost.score;
-			cout << matrix[COL*(path[count][m][0] - 48) + path[count][m][1] - 48].cost.score;
+			////cout << matrix[COL*(path[count][m][0] - 48) + path[count][m][1] - 48].cost.score;
 		}
 		count++;
 	}
@@ -157,11 +165,11 @@ void initChoice(double& tScore, double& oScore)
 				scost += matrix[(path[i][j][0] - 48)*COL + path[i][j][1] - 48].block == false ? storeCost : 0;
 			}
 		}
-		cout << i << ": " << fChain[i] << endl;
+		////cout << i << ": " << fChain[i] << endl;
 		tScore = 0 - scost;
 		tScore += (fChain[i]>0) ? fChain[i] : 0;
 	}
-	cout << "Initial: " << tScore << endl;
+	////cout << "Initial: " << tScore << endl;
 }
 void perm(string str[], int n, int m, double& tScore, double& oScore) {
 	double otmpt = 0, tmptScore = 0, tmpScore, *tmpChain = (double*)malloc(COL * sizeof(double)), scost = 0, tmpscost = 0;
@@ -185,7 +193,7 @@ void perm(string str[], int n, int m, double& tScore, double& oScore) {
 			totalSC = scost;
 			if (scost == 0.4) {
 				for (int i = 0; i < COL; ++i) {
-					cout << fChain[i] << endl;
+					////cout << fChain[i] << endl;
 				}
 			}
 			for (int i = 0; i < ROW; ++i) {
@@ -203,7 +211,7 @@ void perm(string str[], int n, int m, double& tScore, double& oScore) {
 			perm(str, n + 1, m, tScore, oScore);
 			std::swap(str[i], str[n]);
 		}
-	}
+	} 
 }
 void Choice(double& tScore, double& oScore) {
 	printData();
@@ -212,12 +220,13 @@ void Choice(double& tScore, double& oScore) {
 	}
 	double tmpZ = 0;
 	for (int i = 0; i < COL; ++i) {
-		cout << i << ": " << fChain[i] << endl;
+		////cout << i << ": " << fChain[i] << endl;
 	}
-	cout << "Total score with optimization: " << tScore << endl;
-	cout << "Total score without optimization: " << oScore << endl;
-	cout << "Possible total storage cost: " << totalSC << endl;
+	////cout << "Total score with optimization: " << tScore << endl;
+	////cout << "Total score without optimization: " << oScore << endl;
+	////cout << "Possible total storage cost: " << totalSC << endl;
 }
+
 
 int main()
 {
@@ -227,7 +236,7 @@ int main()
 	myfileNonOpt.open("nonOpt.txt");
 
 	//Total iteration numbers
-	int totalIteraNumber = 100;
+	int totalIteraNumber = 201;
 	//Total score without optimization
 	double tScoreNonOpt = 0;
 	//Total score with optimization
@@ -263,6 +272,7 @@ int main()
 		myfileNonOpt << AvgtScoreNonOpt << endl;
 
 	}
+
 	myfileOpt.close();
 	myfileNonOpt.close();
 	system("pause");
