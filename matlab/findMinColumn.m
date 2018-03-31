@@ -19,6 +19,8 @@ function minColumn = findMinColumn(m_matrix, rowVal,columnVal,connect)
             else
                 break;
             end
+        else
+            columnVal = temColumn;
         end
         row = row - 1;
     end
@@ -40,6 +42,8 @@ function minColumn = findMinColumn(m_matrix, rowVal,columnVal,connect)
             else
                 break;
             end
+        else
+            connect = temColumn;
         end
         row = row + 1;
     end

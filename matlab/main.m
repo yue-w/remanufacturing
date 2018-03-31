@@ -38,11 +38,12 @@ m_matrix = initMatrix(m_matrix);
 %m_matrix = modifyInPut(m_matrix);
 
 maxIterate = 100;
+tolerance = 0.001;
 %Asynchronous
-m_matrix= iterate(m_matrix,maxIterate,discount);
+[m_matrix, iteraN, scoreBeforeOpt]= iterate(m_matrix,maxIterate,discount,tolerance);
 %Synchronous
 %m_matrix= iterateSynchronous(m_matrix,maxIterate,discount);
-outPut(m_matrix);
+outPut(m_matrix,iteraN,scoreBeforeOpt);
 
 
 

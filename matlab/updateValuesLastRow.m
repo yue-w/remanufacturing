@@ -19,6 +19,7 @@ function m_matrixNew = updateValuesLastRow(m_matrix)
             [~,valuesUpDown] = computeCurrentValueColum(m_matrix,lastColumn);
             currentColumn = column;
             for row = 1:(M-1)
+                
                 m_matrixNew(row,currentColumn).value = valuesUpDown(row);
                 currentColumn = m_matrixNew(row,currentColumn).connectDown;
             end

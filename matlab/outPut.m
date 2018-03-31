@@ -1,4 +1,4 @@
-function outPut(m_matrix)
+function outPut(m_matrix, iteraN,scoreBeforeOpt)
     [M,N] = size(m_matrix);
     for row = 1:M
         for column = 1:N
@@ -15,6 +15,7 @@ function outPut(m_matrix)
         fprintf('\n');
     end
     totalScore = computeTotalScore(m_matrix);
-    fprintf('Total Score:%.2f \n', totalScore);
-    
+    fprintf('Total score:%.2f.', totalScore);
+    fprintf('    Initial total Score:%.2f.', scoreBeforeOpt);
+    fprintf('    Iteration times:%.2f \n', iteraN);
 end
