@@ -4,7 +4,7 @@ function m_matrixNew=dostep(m_matrix,rowVal,columnVal,discount)
     %If the current cell is blocked    
     if m_matrix(rowVal,columnVal).blocked == true
         %The cost of opening cell (buying new component) Sij. 
-        gij = -costOpenCell(M);
+        gij = -costOpenCell(m_matrix,rowVal,columnVal);
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
         [connect,value,update]= do4(m_matrix,rowVal,columnVal,discount); 
         
@@ -43,161 +43,7 @@ function m_matrixNew=dostep(m_matrix,rowVal,columnVal,discount)
                 %Test: connect all the cells that have not been connected by a line
                  m_matrix = findAndConnectPatches(m_matrix);             
     end   
-m_matrixNew = m_matrix;
-end
-
-function [connect,valueMax] =do(m_matrix,rowVal,columnVal,discount)
-    m_matrix(rowVal,columnVal).buy = false;
-    connect = 1;
-    valueMax = compute(m_matrix,rowVal,columnVal,connect,discount);
-    N=size(m_matrix,2);
-    for direction = 2:N
-        temQ = compute(m_matrix,rowVal,columnVal,direction,discount);
-        %if m_matrix(rowVal,columnVal).value<temQ
-        if valueMax<temQ 
-            update =conflictCheck2(m_matrix,rowVal,columnVal,direction, temQ,discount,connect);
-            %increase2 = increaseCheck(m_matrix,rowVal,columnVal,direction,valueMax,temQ,discount);
-            %totalIncrease = totalValueCheck(m_matrix,rowVal,columnVal,direction, temQ,discount);
-            if update         
-                connect = direction;
-                valueMax = temQ;
-            end
-        else
-           totalScoreHigher = checkTotalScore2(m_matrix,rowVal,columnVal,connect,direction);
-            if totalScoreHigher == true
-                connect = direction;
-                valueMax = temQ;                
-            end
-%         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%            competeColumn = m_matrix(rowVal+1,direction).connectUp;
-%            totalScoreHigher = false;
-%            
-%            if competeColumn ~= columnVal && competeColumn>0
-%                totalScoreHigher = checkTotalScore2(m_matrix,rowVal,columnVal,competeColumn,direction);
-%            end
-%            if totalScoreHigher == true
-%                 connect = direction;
-%                 valueMax = temQ;                
-%             end
-%         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-        end
-        
-    end
-end
-
-function [connect,combinationValue] = do2(m_matrix,rowVal,columnVal,discount)
-    connect = m_matrix(rowVal,columnVal).connectDown;
-    combinationValue = 0;
-    m_matrix(rowVal,columnVal).buy = false;
-    valueMax = computeTotalScore(m_matrix);
-    N=size(m_matrix,2);
-    valueBiggerCombine = compute(m_matrix,rowVal,columnVal,connect,discount);
-    for direction = 1:N
-        m_matrixNew = m_matrix;
-        competeColumn = m_matrix(rowVal+1,direction).connectUp;
-        if competeColumn == 0 || competeColumn == direction
-            %there is no confliction. compute total score of new
-            %combination
-            m_matrixNew(rowVal,columnVal).connectDown = direction;
-            m_matrixNew(rowVal+1,direction).connectUp = columnVal;
-            potentialTotal = computeTotalScore(m_matrixNew);
-        else
-            %The cell you want to connect to has already been connected
-            %by others.
-            %Then, change the matrix to the potential direction, and find
-            %a best substitute connection for the brocken connection
-            originalDown = m_matrixNew(rowVal,columnVal).connectDown;
-            m_matrixNew(rowVal,columnVal).connectDown = direction;
-            m_matrixNew(rowVal+1,direction).connectUp = columnVal;
-            %The original two connections are broken by the confliction
-            m_matrixNew(rowVal,competeColumn).connectDown = 0;
-            if originalDown > 0  % &&  originalDown ~= direction
-                m_matrixNew(rowVal+1,originalDown).connectUp = 0;
-            end
-            [m_matrixNewNew,newRoute,potentialTotal] = findSubstituteRoute(m_matrixNew,rowVal,competeColumn);
-        end
-        
-        valueThisCombine = compute(m_matrix,rowVal,columnVal,direction,discount);
-        
-        %The "if" below is used to start the combination for the first
-        %iteration, in whcih the value of every cell is 0.
-        if potentialTotal == 0
-            if valueThisCombine > valueBiggerCombine
-                valueBiggerCombine = valueThisCombine;
-                connect = direction;
-                combinationValue = compute(m_matrixNew,rowVal,columnVal,connect,discount);
-            end
-        else
-            if valueMax < potentialTotal
-             %if this new direction has higher total value, update.
-                connect = direction;
-                combinationValue = compute(m_matrixNew,rowVal,columnVal,connect,discount);
-                valueMax = potentialTotal;
-            end
-        end
-
-    end  
-end
-
-
-function [connect,combinationValue] = do3(m_matrix,rowVal,columnVal,discount)
-    connect = m_matrix(rowVal,columnVal).connectDown;
-    combinationValue = 0;
-    m_matrix(rowVal,columnVal).buy = false;
-    valueMax = computeTotalScore(m_matrix);
-    N=size(m_matrix,2);
-    valueBiggerCombine = compute(m_matrix,rowVal,columnVal,connect,discount);
-    for direction = 1:N
-        m_matrixNew = m_matrix;
-        competeColumn = m_matrix(rowVal+1,direction).connectUp;
-        if competeColumn == 0 %|| competeColumn == direction
-            %there is no confliction. compute total score of new
-            %combination
-            m_matrixNew(rowVal,columnVal).connectDown = direction;
-            m_matrixNew(rowVal+1,direction).connectUp = columnVal;
-            potentialTotal = computeTotalScore(m_matrixNew);
-        elseif competeColumn == columnVal
-            %there is no confliction. compute total score of new
-            %combination
-            m_matrixNew(rowVal,columnVal).connectDown = direction;
-            m_matrixNew(rowVal+1,direction).connectUp = columnVal;
-            potentialTotal = computeTotalScore(m_matrixNew);               
-        else
-            %The cell you want to connect to has already been connected
-            %by others.
-            %Then, change the matrix to the potential direction, and find
-            %a best substitute connection for the brocken connection
-            originalDown = m_matrix(rowVal,columnVal).connectDown;
-            m_matrixNew(rowVal,columnVal).connectDown = direction;
-            m_matrixNew(rowVal+1,direction).connectUp = columnVal;
-            %The original two connections are broken by the confliction
-            m_matrixNew(rowVal,competeColumn).connectDown = 0;
-            if originalDown > 0    &&  originalDown ~= direction
-                m_matrixNew(rowVal+1,originalDown).connectUp = 0;
-            end
-            [m_matrixNewNew,newRoute,potentialTotal] = findSubstituteRoute(m_matrixNew,rowVal,competeColumn);
-        end
-        
-        valueThisCombine = compute(m_matrix,rowVal,columnVal,direction,discount);
-        
-        %The "if" below is used to start the combination for the first
-        %iteration, in whcih the value of every cell is 0.
-        if potentialTotal == 0
-            if valueThisCombine > valueBiggerCombine
-                valueBiggerCombine = valueThisCombine;
-                connect = direction;
-                combinationValue = compute(m_matrixNew,rowVal,columnVal,connect,discount);
-            end
-        else
-            if valueMax < potentialTotal
-             %if this new direction has higher total value, update.
-                connect = direction;
-                combinationValue = compute(m_matrixNew,rowVal,columnVal,connect,discount);
-                valueMax = potentialTotal;
-            end
-        end
-
-    end  
+    m_matrixNew = m_matrix;
 end
 
 function [connect,combinationValue, update] = do4(m_matrix,rowVal,columnVal,discount)
@@ -314,12 +160,12 @@ function update = conflictCheck(m_matrix,rowVal,columnVal,potentialConnect, valu
                 %Method one: check whether the compete cell is blocked, if it
                 %is, add the cost to the value
                 if m_matrix(rowVal,competeColumn).blocked == true
-                     costOpenCompete = costOpenCell(0,0,0);%Now, assume the cost is constant
+                     costOpenCompete = costOpenCell(m_matrix,rowVal,competeColumn);%Now, assume the cost is constant
                      competeValue = competeValue -costOpenCompete;
                 end
 
                 if m_matrix(rowVal,columnVal).blocked == true
-                    costOpenValue = costOpenCell(0,0,0);%Now, assume the cost is constant
+                    costOpenValue = costOpenCell(m_matrix,rowVal,columnVal);%Now, assume the cost is constant
                     value  = value - costOpenValue;
                 end
                     
@@ -338,12 +184,12 @@ function update = conflictCheck(m_matrix,rowVal,columnVal,potentialConnect, valu
                 %Method one: check whether the compete cell is blocked, if it
                 %is, add the cost to the value
                 if m_matrix(rowVal,competeColumn).blocked == true
-                     costOpenCompete = costOpenCell(0,0,0);%Now, assume the cost is constant
+                     costOpenCompete = costOpenCell(m_matrix, rowVal,competeColumn);%Now, assume the cost is constant
                      competeValue = competeValue -costOpenCompete;
                 end
 
                 if m_matrix(rowVal,columnVal).blocked == true
-                    costOpenValue = costOpenCell(0,0,0);%Now, assume the cost is constant
+                    costOpenValue = costOpenCell(m_matrix,rowVal,columnVal);%Now, assume the cost is constant
                     value  = value - costOpenValue;
                 end
                     
@@ -581,9 +427,3 @@ function m_matrixNew = upDateValues(m_matrix,rowVal,columnVal,connect,value)
         m_matrixNew = m_matrix;
 
 end
-% function costOpen = costOpenCell(M)
-%     Cost = 1;
-%     %costOpen = Cost/M;
-%     %costOpen = Cost/(M-1);
-%     costOpen = Cost;
-% end

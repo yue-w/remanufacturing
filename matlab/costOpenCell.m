@@ -3,6 +3,6 @@
 function costOpen = costOpenCell(m_matrix,rowM,columnN)
     %cost = -abs(columnN+1-columnVal)/rowM;
     %cost=-1/rowM;
-    %Cost = 0.1;
+    %costOpen = 0;
     costOpen = m_matrix(rowM,columnN).price;
 end

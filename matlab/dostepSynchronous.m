@@ -150,12 +150,12 @@ function update = conflictCheck(m_matrix,rowVal,columnVal,potentialConnect, valu
                 %Method one: check whether the compete cell is blocked, if it
                 %is, add the cost to the value
                 if m_matrix(rowVal,competeColumn).blocked == true
-                     costOpenCompete = costOpenCell(0,0,0);%Now, assume the cost is constant
+                     costOpenCompete = costOpenCell(m_matrix,rowVal,competeColumn);%Now, assume the cost is constant
                      competeValue = competeValue -costOpenCompete;
                 end
 
                 if m_matrix(rowVal,columnVal).blocked == true
-                    costOpenValue = costOpenCell(0,0,0);%Now, assume the cost is constant
+                    costOpenValue = costOpenCell(m_matrix,rowVal,columnVal);%Now, assume the cost is constant
                     value  = value - costOpenValue;
                 end
                     
@@ -174,12 +174,12 @@ function update = conflictCheck(m_matrix,rowVal,columnVal,potentialConnect, valu
                 %Method one: check whether the compete cell is blocked, if it
                 %is, add the cost to the value
                 if m_matrix(rowVal,competeColumn).blocked == true
-                     costOpenCompete = costOpenCell(0,0,0);%Now, assume the cost is constant
+                     costOpenCompete = costOpenCell(m_matrix,rowVal,competeColumn);%Now, assume the cost is constant
                      competeValue = competeValue -costOpenCompete;
                 end
 
                 if m_matrix(rowVal,columnVal).blocked == true
-                    costOpenValue = costOpenCell(0,0,0);%Now, assume the cost is constant
+                    costOpenValue = costOpenCell(m_matrix,rowVal,columnVal);%Now, assume the cost is constant
                     value  = value - costOpenValue;
                 end
                     

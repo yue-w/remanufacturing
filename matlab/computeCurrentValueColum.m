@@ -16,8 +16,10 @@ discount = 1; %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
         row = row -1;
         cost = 0; 
         if (row>0 && columnVal>0)
+            %If the uper cell is blocked.
             if m_matrixNew(row,columnVal).blocked == true
-                cost = costOpenCell(0,0,0);
+                cost = costOpenCell(m_matrix, row,columnVal);
+                
             end
             
         end

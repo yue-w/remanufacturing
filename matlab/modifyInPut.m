@@ -9,5 +9,6 @@ function m_matrixNew = modifyInPut(m_matrix)
     %m_matrix(1,1).blocked = true;
     %m_matrix(2,1).blocked = true;
     %m_matrix(2,4).blocked = true;
+    %m_matrix(4,1).blocked = true;
     m_matrixNew = m_matrix;
 end

@@ -13,7 +13,7 @@ function m_matrixNew = dostepLastRow(m_matrix,columnVal)
 
     %if this cell is blocked, the value is the cost of opening it
     if m_matrix(M,columnVal).blocked == true
-        m_matrix(M,columnVal).value = -costOpenCell(0,0,0);
+        m_matrix(M,columnVal).value = -costOpenCell(m_matrix,M,columnVal);
         m_matrix(M,columnVal).buy = true;
         m_matrixNew = m_matrix;
     else
@@ -23,13 +23,13 @@ function m_matrixNew = dostepLastRow(m_matrix,columnVal)
     
 
 end
-
-function r=computeR(M,connect, columnV, buy)
-    %M = size(m_matrix,1);
-    if buy==true%this cell need to be open
-        cost = costOpenCell(0,0,0);
-        r=-cost-(min(columnV-connect))/(M-1);
-    else
-        r=-(min(columnV-connect))/(M-1);
-    end
-end
+% 
+% function r=computeR(M,connect, columnV, buy)
+%     %M = size(m_matrix,1);
+%     if buy==true%this cell need to be open
+%         cost = costOpenCell(0,0,0);
+%         r=-cost-(min(columnV-connect))/(M-1);
+%     else
+%         r=-(min(columnV-connect))/(M-1);
+%     end
+% end
