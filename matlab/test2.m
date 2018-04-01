@@ -1,4 +1,5 @@
 %This is test 2.
-for i = 1:4
-   randperm(5) 
+a = 1:10;
+for i = a
+   b = i;
 end

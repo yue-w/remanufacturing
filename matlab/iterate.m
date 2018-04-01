@@ -1,4 +1,4 @@
-function [m_matrixNew, iteTimes, scoreBeforeOpt]=iterate(m_matrix,Max,discount, tolerance)
+function [m_matrixNew, iteTimes, scoreBeforeOpt, scoreAfterOpt]=iterate(m_matrix,Max,discount, tolerance)
 %Max is the iteration times
 %
     [M,N]=size(m_matrix);
@@ -36,6 +36,7 @@ function [m_matrixNew, iteTimes, scoreBeforeOpt]=iterate(m_matrix,Max,discount, 
         end
         %
     end
-    
+    %Total score after optimization
+    scoreAfterOpt = sumScoreFirstRow(m_matrix);
     m_matrixNew=m_matrix;
 end
