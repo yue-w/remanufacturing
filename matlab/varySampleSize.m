@@ -1,4 +1,4 @@
-function varySampleSize(m_matrix,maxIterate,tolerance,pBlocked, maxSampleSize,stepSampleSize,initSampleSize)
+function varySampleSize(m_matrix,maxIterate,tolerance,pBlocked, maxSampleSize,stepSampleSize,initSampleSize,NUM,sigma)
 %This function varies the sample size
     discount = 1;
     %The number of experiments
@@ -18,9 +18,11 @@ function varySampleSize(m_matrix,maxIterate,tolerance,pBlocked, maxSampleSize,st
         totalScoreOpt = 0;
         totalScoreNon = 0;
         for i = 1:sampleSize
+            
+            
             %Asynchronous
             m_matrix = initMatrix(m_matrix,pBlocked);
-            [m_matrix, ~, scoreBeforeOpt, scoreAfterOpt]= iterate(m_matrix,maxIterate,discount,tolerance);
+            [m_matrix, ~, scoreBeforeOpt, scoreAfterOpt]= iterate(m_matrix,maxIterate,discount,tolerance,NUM,sigma);
             %Synchronous
             %[m_matrix, iteraN, scoreBeforeOpt, scoreAfterOpt]=  iterateSynchronous(m_matrix,maxIterate,discount);
 

@@ -6,13 +6,7 @@ function m_matrixNew= initpBlocked(m_matrix,p)
             m_matrix(row,col).pBlocked = p;
         end
     end
-    
-    %For testing
-    %m_matrix(2,3).pBlocked = 1;
-    %m_matrix(3,2).pBlocked = 1;
-    %m_matrix(3,3).pBlocked = 1;
-    %m_matrix(3,4).pBlocked = 1;
-    %For testing
+   
     
     m_matrixNew = m_matrix;
 end

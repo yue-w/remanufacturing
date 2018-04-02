@@ -1,4 +1,4 @@
-function [m_matrixNewNew,newRoute,potentialTotal] = SolveConfliction(m_matrixNew,rowVal,columnVal,direction,competeColumn)
+function [m_matrixNewNew,newRoute,potentialTotal] = SolveConfliction(m_matrixNew,rowVal,columnVal,direction,competeColumn,numMC,sigma)
 %The cell you want to connect to has already been connected
 %by others.
 %Then, change the matrix to the potential direction, and find
@@ -14,6 +14,6 @@ function [m_matrixNewNew,newRoute,potentialTotal] = SolveConfliction(m_matrixNew
                     m_matrixNew(rowVal+1,originalDown).connectUp = 0;
                 end
             end
-            [m_matrixNewNew,newRoute,potentialTotal] = findSubstituteRoute(m_matrixNew,rowVal,competeColumn);
+            [m_matrixNewNew,newRoute,potentialTotal] = findSubstituteRoute(m_matrixNew,rowVal,competeColumn,numMC,sigma);
 end
   

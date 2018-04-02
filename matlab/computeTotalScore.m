@@ -1,4 +1,4 @@
-function totalScore = computeTotalScore(m_matrix)
+function totalScore = computeTotalScore(m_matrix, MC,NUMofMC, sigma)
 %Compute total score, dismiss the columns with connection confliction
     [M,N] = size(m_matrix);
     totalScore = 0;
@@ -19,12 +19,13 @@ function totalScore = computeTotalScore(m_matrix)
             end
             anchor = downDirection;
         end
+        
         if conflict == false
 %             %If the score is less than 0, do not connect this line.
 %             if m_matrix(1,column).value>0
 %              scoreOfThisColumn = computeCurrentValueColum(m_matrix,column,anchor);
 %             end
-              scoreOfThisColumn = computeCurrentValueColum(m_matrix,anchor);
+              scoreOfThisColumn = computeCurrentValueColum(m_matrix,anchor,MC,NUMofMC,sigma);
         end
         if(scoreOfThisColumn>0)
             totalScore = totalScore + scoreOfThisColumn;

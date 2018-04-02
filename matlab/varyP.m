@@ -1,4 +1,4 @@
-function varyP(m_matrix, maxIterate,tolerance, sampleSize)
+function varyP(m_matrix, maxIterate,tolerance, sampleSize,NUM,sigma)
 %This function varies the probability that the cells be missing
 %Set the probability that the cell be missing
     discount = 1;
@@ -16,7 +16,7 @@ function varyP(m_matrix, maxIterate,tolerance, sampleSize)
             m_matrix = initMatrix(m_matrix,p);
             %Modify the probability of cells be blocked(missing)
             m_matrix = initpBlocked(m_matrix,p);
-           [m_matrix, ~, scoreBeforeOpt, scoreAfterOpt]= iterate(m_matrix,maxIterate,discount,tolerance);
+           [m_matrix, ~, scoreBeforeOpt, scoreAfterOpt]= iterate(m_matrix,maxIterate,discount,tolerance,NUM,sigma);
            totalScoreOpt = totalScoreOpt + scoreAfterOpt;
            totalScoreNon = totalScoreNon + scoreBeforeOpt;
         end        

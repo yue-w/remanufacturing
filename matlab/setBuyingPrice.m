@@ -17,6 +17,7 @@ function m_matrix_New = setBuyingPrice(m_matrix)
         %Fly whell
         m_matrix(7,col).price = 0.02;      
     end
+    
     %m_matrix(2,3).price = 0.2;
     %m_matrix(3,2).price = 3.1;
     

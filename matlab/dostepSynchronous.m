@@ -83,7 +83,7 @@ function [connect,combinationValue, update, valueMax] = doSynchronous(m_matrix,r
                    %by others.
                    %Then, change the matrix to the potential direction, and find
                    %a best substitute connection for the brocken connection                  
-                   [m_matrixNew,newRoute,potentialTotal] = SolveConfliction(m_matrixNew,rowVal,columnVal,direction,competeColumn);
+                   [m_matrixNew,newRoute,potentialTotal] = SolveConfliction(m_matrixNew,rowVal,columnVal,direction,competeColumn,NUM,sigma);
                else
                     %there is no confliction. compute total score of new
                     %combination

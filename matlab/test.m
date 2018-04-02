@@ -27,11 +27,11 @@
 % for col = 1:N
 %     m_matrix(M,col).connectDown = 0;
 % end
-x = 0:.1:1;
-y = 0*x;
-A = [x; exp(x); y];
-
-fileID = fopen('exp.txt','w');
-fprintf(fileID,'%6s %12s\n','x','exp(x)');
-fprintf(fileID,'%6.2f %6.2f %12.8f\n',A);
-fclose(fileID);
+% x = 0:.1:1;
+% y = 0*x;
+% A = [x; exp(x); y];
+% 
+% fileID = fopen('exp.txt','w');
+% fprintf(fileID,'%6s %12s\n','x','exp(x)');
+% fprintf(fileID,'%6.2f %6.2f %12.8f\n',A);
+% fclose(fileID);

@@ -16,7 +16,7 @@ function m_matrixNew = updateValuesLastRow(m_matrix)
             end
         %If this chain goes to the last row
         else
-            [~,valuesUpDown] = computeCurrentValueColum(m_matrix,lastColumn);
+            [~,valuesUpDown] = computeCurrentValueColum(m_matrix,lastColumn,0,1,0);
             currentColumn = column;
             for row = 1:(M-1)
                 

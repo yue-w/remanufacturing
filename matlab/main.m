@@ -26,19 +26,20 @@ m_matrix(M,N)=m_cell;
 
 maxIterate = 100;
 tolerance = 0.001;
-        
+numMonteCarlo = 2;       
+sigma = 0;
 %The maximumn sample size
-maxSampleSize = 20;
-stepSampleSize = 10;
-initSampleSize = 10;
-pBlocked = 0.2;
+maxSampleSize = 10;
+stepSampleSize = 1;
+initSampleSize = 1;
+pBlocked = 0;
 
 %Test the sample size
-varySampleSize(m_matrix, maxIterate,tolerance,pBlocked,maxSampleSize,stepSampleSize,initSampleSize);
+varySampleSize(m_matrix, maxIterate,tolerance,pBlocked,maxSampleSize,stepSampleSize,initSampleSize,numMonteCarlo,sigma);
 
 %Test the probability of missing
 sampleSize = 4;
-varyP(m_matrix, maxIterate,tolerance, sampleSize);
+%varyP(m_matrix, maxIterate,tolerance, sampleSize,numMonteCarlo,sigma);
 
 %outPut(m_matrix,iteraN,scoreBeforeOpt);
 

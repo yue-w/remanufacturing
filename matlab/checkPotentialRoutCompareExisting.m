@@ -1,4 +1,4 @@
-function score = checkPotentialRoutCompareExisting(m_matrix,rowVal,columnVal,potentialDirection)
+function score = checkPotentialRoutCompareExisting(m_matrix,rowVal,columnVal,potentialDirection,NUMofMC,sigma)
 
     score = 0; 
     m_matrixNew = m_matrix;
@@ -48,6 +48,6 @@ function score = checkPotentialRoutCompareExisting(m_matrix,rowVal,columnVal,pot
         row = row + 1;
     end
     if LastIndex>0
-        [score,valuesUpDown]= computeCurrentValueColum(m_matrixNew,LastIndex);  
+        [score,valuesUpDown]= computeCurrentValueColum(m_matrixNew,LastIndex,true,NUMofMC,sigma);  
     end
 end

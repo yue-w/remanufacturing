@@ -1,4 +1,4 @@
-function score = checkPotentialRout(m_matrix,rowVal,oldDirection, newDirection)
+function score = checkPotentialRout(m_matrix,rowVal,oldDirection, newDirection,NUMofMC, sigma)
 %Check whether there are potential connections when a new connection is
 %made and old connection is brocken.
 %if there are potential connections, value will be the score of the
@@ -33,7 +33,7 @@ function score = checkPotentialRout(m_matrix,rowVal,oldDirection, newDirection)
         row = row + 1;
     end
     if LastIndex>0
-        score = computeCurrentValueColum(m_matrixNew,LastIndex);  
+        score = computeCurrentValueColum(m_matrixNew,LastIndex,true,NUMofMC,sigma);  
     end
     
 end

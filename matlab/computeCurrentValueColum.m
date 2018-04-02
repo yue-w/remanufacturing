@@ -1,10 +1,12 @@
-function [value,valuesUpDown] = computeCurrentValueColum(m_matrix,anchor)
+function [value,valuesUpDown] = computeCurrentValueColum(m_matrix,anchor,MC,NUM,sigma)
 discount = 1; %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%Modify!
 %Compute the score of this chain (Trace up from the last cell). Instead of just read the score of the
 %cell in the first row of this chain, this function compute the score by
 %the connections. Because the score in the cells might not have been updated yet.
 %All the values of the cells in this chain is stored in valuesUpDown, from
 %the first row to the last row
+
+
     m_matrixNew = m_matrix;
     [M,N] = size(m_matrix);
     valuesUpDown = zeros(M,1);
@@ -20,11 +22,16 @@ discount = 1; %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
             if m_matrixNew(row,columnVal).blocked == true
                 cost = costOpenCell(m_matrix, row,columnVal);
                 
-            end
-            
+            end            
         end
         if (row>0 && columnVal>0)
-            temV = -cost + compute(m_matrixNew,row,columnVal,anchor,discount);
+            %Whether Monte Carlo is used
+            if MC == false
+                temV = -cost + compute(m_matrixNew,row,columnVal,anchor,discount);
+            else
+                temV = -cost + compute_MC(m_matrixNew,row,columnVal,anchor,NUM,sigma);
+            end
+                       
             m_matrixNew(row,columnVal).value = temV;
             valuesUpDown(row) = temV;
             anchor = columnVal;
