@@ -1,6 +1,7 @@
 function [m_matrixNew, iteTimes, scoreBeforeOpt, scoreAfterOpt]=iterate(m_matrix,Max,discount, tolerance, NUM, sigma)
 %Max is the iteration times
 %
+consectutiveTime = 7;
     [M,N]=size(m_matrix);
     iteTimes = 0;
     %Compute the values of each cell according to the current connections
@@ -34,9 +35,9 @@ function [m_matrixNew, iteTimes, scoreBeforeOpt, scoreAfterOpt]=iterate(m_matrix
         
         %scoreFirstRowAfter = sumScoreFirstRow(m_matrix);
         
-        if it>3
-            %if the optimization hasn't change for 4 iterations, break
-            if abs(optHistory(it)-optHistory(it-3)<tolerance)
+        if it>consectutiveTime
+            %if the optimization hasn't change for 'consectutiveTime' iterations, break
+            if abs(optHistory(it)-optHistory(it-consectutiveTime)<tolerance)
                 break;
             end
         end

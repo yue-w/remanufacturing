@@ -1,8 +1,8 @@
 function UT(m_matrix)
 %Number of row (# of components)
-M=4;
+M=7;
 %Number of column (# of Remaining Useful Year (RUL))
-N=4;
+N=5;
 discount = 1;
 maxIterate = 100;
 tolerance = 0.001;
@@ -33,17 +33,17 @@ m_matrix = basicInit(m_matrix);
     m_matrix = setBlockedByP(m_matrix);
     
     
-    m_matrix(2,3).blocked = true;
-    m_matrix(2,3).price = 3.1;
-        
-    m_matrix(3,2).blocked = true;
-    m_matrix(3,2).price = 3.1;
+%     m_matrix(2,3).blocked = true;
+%     m_matrix(2,3).price = 3.1;
+%         
+%     m_matrix(3,2).blocked = true;
+%     m_matrix(3,2).price = 3.1;
     
     %m_matrix(3,3).blocked = true;
     %m_matrix(3,3).price =1.1;
     
-    m_matrix(3,4).blocked = true;
-    m_matrix(3,4).price = 3.1;
+%     m_matrix(3,4).blocked = true;
+%     m_matrix(3,4).price = 3.1;
 
 
 
