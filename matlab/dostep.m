@@ -64,7 +64,8 @@ function [connect,combinationValue, update] = do4(m_matrix,rowVal,columnVal,disc
     MC = true;
     combinationValue = 0;
     m_matrix(rowVal,columnVal).buy = false;
-    valueMax = computeTotalScore(m_matrix,MC,NUM,sigma);
+    %valueMax = computeTotalScore(m_matrix,MC,NUM,sigma);
+    valueMax = computeTotalScoreSC(m_matrix,MC,NUM,sigma);
     N=size(m_matrix,2);
 
     changedOnce = false;
@@ -78,15 +79,15 @@ function [connect,combinationValue, update] = do4(m_matrix,rowVal,columnVal,disc
             m_matrixNew(rowVal,columnVal).connectDown = direction;
             m_matrixNew(rowVal+1,direction).connectUp = columnVal;
             m_matrixNew = findAndConnectPatches(m_matrixNew);
-            potentialTotal = computeTotalScore(m_matrixNew,MC, NUM, sigma);
-            
+            %potentialTotal = computeTotalScore(m_matrixNew,MC, NUM, sigma);
+            potentialTotal = computeTotalScoreSC(m_matrixNew,MC, NUM, sigma);
         elseif competeColumn == columnVal
             %there is no confliction. compute total score of new
             %combination
             m_matrixNew(rowVal,columnVal).connectDown = direction;
             m_matrixNew(rowVal+1,direction).connectUp = columnVal;
-            potentialTotal = computeTotalScore(m_matrixNew,MC,NUM, sigma); 
-            
+            %potentialTotal = computeTotalScore(m_matrixNew,MC,NUM, sigma); 
+            potentialTotal = computeTotalScoreSC(m_matrixNew,MC,NUM, sigma); 
         else       
                effective = checkEffectiveConnection(m_matrix,rowVal,direction);
                if effective == true
@@ -100,7 +101,8 @@ function [connect,combinationValue, update] = do4(m_matrix,rowVal,columnVal,disc
                     %combination
                     m_matrixNew(rowVal,columnVal).connectDown = direction;
                     m_matrixNew(rowVal+1,direction).connectUp = columnVal;
-                    potentialTotal = computeTotalScore(m_matrixNew,MC,NUM, sigma);                  
+                    %potentialTotal = computeTotalScore(m_matrixNew,MC,NUM, sigma); 
+                    potentialTotal = computeTotalScoreSC(m_matrixNew,MC,NUM, sigma); 
                end
 
         end

@@ -35,3 +35,4 @@
 % fprintf(fileID,'%6s %12s\n','x','exp(x)');
 % fprintf(fileID,'%6.2f %6.2f %12.8f\n',A);
 % fclose(fileID);
+a = max([1 4])

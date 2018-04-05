@@ -1,12 +1,12 @@
 function UT(m_matrix)
 %Number of row (# of components)
-M=7;
+M=4;
 %Number of column (# of Remaining Useful Year (RUL))
-N=5;
+N=4;
 discount = 1;
 maxIterate = 100;
 tolerance = 0.001;
-numMonteCarlo = 4;  
+numMonteCarlo = 1;  
 
 m_cell.value = 0;
 m_cell.connectUp = 0;
@@ -33,19 +33,20 @@ m_matrix = basicInit(m_matrix);
     m_matrix = setBlockedByP(m_matrix);
     
     
-%     m_matrix(2,3).blocked = true;
-%     m_matrix(2,3).price = 3.1;
-%         
-%     m_matrix(3,2).blocked = true;
-%     m_matrix(3,2).price = 3.1;
-    
-    %m_matrix(3,3).blocked = true;
-    %m_matrix(3,3).price =1.1;
-    
-%     m_matrix(3,4).blocked = true;
-%     m_matrix(3,4).price = 3.1;
+    m_matrix(2,3).blocked = true;
+    m_matrix(2,3).price = 3.1;
 
+     m_matrix(3,2).blocked = true;
+     m_matrix(3,2).price =3.1;
+    
+%      m_matrix(3,3).blocked = true;
+%      m_matrix(3,3).price =3.1;
+    
+    m_matrix(3,4).blocked = true;
+    m_matrix(3,4).price = 3.1;
 
+%      m_matrix(4,2).blocked = true;
+%      m_matrix(4,2).price = 1.9;
 
 [m_matrix, iteTimes, scoreBeforeOpt, ~]= iterate(m_matrix,maxIterate,discount,tolerance,numMonteCarlo, sigma);
 outPut(m_matrix,iteTimes,scoreBeforeOpt);

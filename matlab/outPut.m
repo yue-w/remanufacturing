@@ -15,8 +15,10 @@ function outPut(m_matrix, iteraN,scoreBeforeOpt)
         fprintf('\n');
     end
     %This score should be certain, without Monte Carlo.
-    totalScore = computeTotalScore(m_matrix,false,1,0);
+    %totalScore = computeTotalScore(m_matrix,false,1,0);
+    totalScore = computeTotalScoreSC(m_matrix,false,1,0);
     fprintf('Total score:%.2f.', totalScore);
     fprintf('    Initial total Score:%.2f.\n', scoreBeforeOpt);
     %fprintf('    Iteration times:%.2f \n', iteraN);
+    
 end
