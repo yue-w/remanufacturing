@@ -18,7 +18,10 @@ m_cell.buy = false;
 %m_cell.RUL = 0;
 m_cell.price = 0;
 m_cell.pBlocked = 0;
+%Holding cost (storage cost)
 
+m_cell.sc = 0;
+m_cell.pBlocked = 0;
 m_matrix(M,N)=m_cell;
 
 
@@ -26,7 +29,7 @@ m_matrix(M,N)=m_cell;
 
 maxIterate = 100;
 tolerance = 0.001;
-numMonteCarlo = 2;       
+numMonteCarlo = 1;       
 sigma = 0;
 %The maximumn sample size
 maxSampleSize = 10;
@@ -35,14 +38,16 @@ initSampleSize = 1;
 pBlocked = 0;
 
 %Test the sample size
-varySampleSize(m_matrix, maxIterate,tolerance,pBlocked,maxSampleSize,stepSampleSize,initSampleSize,numMonteCarlo,sigma);
+%varySampleSize(m_matrix, maxIterate,tolerance,pBlocked,maxSampleSize,stepSampleSize,initSampleSize,numMonteCarlo,sigma);
 
 %Test the probability of missing
-sampleSize = 4;
+sampleSize = 1;
 %varyP(m_matrix, maxIterate,tolerance, sampleSize,numMonteCarlo,sigma);
 
 %outPut(m_matrix,iteraN,scoreBeforeOpt);
 
+%Test the holding cost (storage cost)
+varySC(m_matrix, maxIterate,tolerance, sampleSize,numMonteCarlo,sigma);
 
 
 

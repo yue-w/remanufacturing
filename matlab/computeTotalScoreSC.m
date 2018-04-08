@@ -3,8 +3,9 @@ function totalScore = computeTotalScoreSC(m_matrix, MC,NUMofMC, sigma)
 %If the score of a connection is less than 0, add the storage cost to the
 %Cells that are not missing
     
-    %The storage cost of one cell
-    SC = 0.01;
+    %The storage cost of one cell. For now, only consider that the sc for
+    %every cell are the same.
+    SC = m_matrix(1,1).sc;
     [M,N] = size(m_matrix);
     totalScore = 0;
     for column = 1:N

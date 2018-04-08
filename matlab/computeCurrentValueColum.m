@@ -5,7 +5,7 @@ discount = 1; %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %the connections. Because the score in the cells might not have been updated yet.
 %All the values of the cells in this chain is stored in valuesUpDown, from
 %the first row to the last row
-
+%This function does not consider the storage cost. If the the score of this chain
 
     m_matrixNew = m_matrix;
     [M,N] = size(m_matrix);

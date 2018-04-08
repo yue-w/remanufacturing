@@ -8,6 +8,7 @@ function m_matrix_New = basicInit(m_matrix)
     %m_cell.RUL = 0;
     m_cell.price = 0;
     m_cell.pBlocked = 0;
+    m_cell.sc = 0.01;
     [M,N] = size(m_matrix);
     for row = 1:M
         for col = 1:N
