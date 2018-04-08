@@ -1,13 +1,13 @@
-function varySC(m_matrix, maxIterate,tolerance, sampleSize,NUM,sigma,pBlocked,scVec)
-%This function varies the houding cost(storage cost) of unused components
+function varySigma(m_matrix, maxIterate,tolerance, sampleSize,NUM,vecSigma,pBlocked)
+%This function test the effect of varying the standard deviation of normal
+%distribution in the inspecting processes.
     discount = 1;
-    %scVec = 0:0.05:0.6;
-    expNum = size(scVec,2);
+    expNum = size(vecSigma,2);
     aveTotalScoreOpt = zeros(1,expNum);
     aveTotalScoreNon = zeros(1,expNum);
     index = 1;
     
-    for sc = scVec
+    for sigma = vecSigma
         totalScoreOpt = 0;
         totalScoreNon = 0;  
         %Average samples
@@ -22,13 +22,15 @@ function varySC(m_matrix, maxIterate,tolerance, sampleSize,NUM,sigma,pBlocked,sc
         aveTotalScoreNon(index) = totalScoreNon/sampleSize;        
         index = index+1;   
     end
-    resultVector = [scVec; aveTotalScoreOpt; aveTotalScoreNon];
+    resultVector = [vecSigma; aveTotalScoreOpt; aveTotalScoreNon];
     
-    fileName = 'resultSC';
+    %Write the result to txt
+    fileName = 'resultSigma';
     writeFile(resultVector, fileName);
-
+    
     
     %close all
     figure
-    plot(scVec,aveTotalScoreOpt,scVec,aveTotalScoreNon);  
+    plot(vecSigma,aveTotalScoreOpt,vecSigma,aveTotalScoreNon);  
+
 end

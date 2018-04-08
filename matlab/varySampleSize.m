@@ -41,10 +41,8 @@ function varySampleSize(m_matrix,maxIterate,tolerance,pBlocked, maxSampleSize,st
     resultVector = [vecIteNumber; aveTotalScoreOpt; aveTotalScoreNon];
 
     %Write the result to txt
-    fileID = fopen('resultN.txt','w');
-    fprintf(fileID,'%12s %3s %7s\n','Sample Size','OPT', 'NON-OPT');
-    fprintf(fileID,'%1.0f %6.3f %6.3f\n',resultVector);
-    fclose(fileID);
+    fileName = 'resultSampleSize';
+    writeFile(resultVector, fileName);
 
     %close all
     figure

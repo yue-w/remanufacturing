@@ -30,25 +30,38 @@ m_matrix(M,N)=m_cell;
 maxIterate = 100;
 tolerance = 0.001;
 numMonteCarlo = 1;       
-sigma = 0;
-%The maximumn sample size
-maxSampleSize = 10;
-stepSampleSize = 1;
-initSampleSize = 1;
-pBlocked = 0;
+sigma = 0.1;
+
 
 %Test the sample size
-%varySampleSize(m_matrix, maxIterate,tolerance,pBlocked,maxSampleSize,stepSampleSize,initSampleSize,numMonteCarlo,sigma);
+%The maximumn sample size
+maxSampleSize = 100;
+stepSampleSize = 10;
+initSampleSize = 10;
+pBlocked = 0.2;
+varySampleSize(m_matrix, maxIterate,tolerance,pBlocked,maxSampleSize,stepSampleSize,initSampleSize,numMonteCarlo,sigma);
 
 %Test the probability of missing
-sampleSize = 1;
-%varyP(m_matrix, maxIterate,tolerance, sampleSize,numMonteCarlo,sigma);
+sampleSize = 20;
+pVec = 0:0.05:1;
+varyP(m_matrix, maxIterate,tolerance, sampleSize,numMonteCarlo,sigma,pVec);
 
-%outPut(m_matrix,iteraN,scoreBeforeOpt);
 
 %Test the holding cost (storage cost)
-varySC(m_matrix, maxIterate,tolerance, sampleSize,numMonteCarlo,sigma);
+pBlocked = 0.2;
+sampleSize = 20;
+scVec = 0:0.05:0.6;
+varySC(m_matrix, maxIterate,tolerance, sampleSize,numMonteCarlo,sigma,pBlocked,scVec);
 
+%Test the buying price
+pBlocked = 0.2;
+sampleSize = 20;
+vecScale = 0.5:0.5:10;
+varyBPrice(m_matrix, maxIterate,tolerance, sampleSize,numMonteCarlo,sigma,pBlocked,vecScale);
 
-
+%Test sigma
+pBlocked = 0.2;
+sampleSize = 20;
+vecSigma = 0:0.05:0.5;
+varySigma(m_matrix, maxIterate,tolerance, sampleSize,numMonteCarlo,vecSigma,pBlocked)
 

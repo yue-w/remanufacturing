@@ -1,8 +1,8 @@
-function varyP(m_matrix, maxIterate,tolerance, sampleSize,NUM,sigma)
+function varyP(m_matrix, maxIterate,tolerance, sampleSize,NUM,sigma,pVec)
 %This function varies the probability that the cells be missing
 %Set the probability that the cell be missing
     discount = 1;
-    pVec = 0:0.1:1;
+    %pVec = 0:0.1:1;
     expNum = size(pVec,2);
     aveTotalScoreOpt = zeros(1,expNum);
     aveTotalScoreNon = zeros(1,expNum);
@@ -26,12 +26,11 @@ function varyP(m_matrix, maxIterate,tolerance, sampleSize,NUM,sigma)
     end
     
    resultVector = [pVec; aveTotalScoreOpt; aveTotalScoreNon];
-   %Write the result to txt
-    fileID = fopen('resultP.txt','w');
-    fprintf(fileID,'%1s %3s %7s\n','P ',' OPT', 'NON-OPT');
-    fprintf(fileID,'%3.2f %6.3f %6.3f\n',resultVector);
-    fclose(fileID);
 
+    %Write the result to txt
+    fileName = 'resultP';
+    writeFile(resultVector, fileName);   
+    
     %close all
     figure
     plot(pVec,aveTotalScoreOpt,pVec,aveTotalScoreNon);    

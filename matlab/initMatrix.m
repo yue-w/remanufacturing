@@ -11,7 +11,7 @@ m_matrix = basicInit(m_matrix);
 %Set the cell to be blocked according to the probability
     m_matrix = setBlockedByP(m_matrix);
 %Set the price of buying the blocked component
-   m_matrix = setBuyingPrice(m_matrix);
+   m_matrix = setBuyingPrice(m_matrix,1);
    
    
    
