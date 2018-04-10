@@ -56,7 +56,7 @@ varySC(m_matrix, maxIterate,tolerance, sampleSize,numMonteCarlo,sigma,pBlocked,s
 %Test the buying price
 pBlocked = 0.2;
 sampleSize = 20;
-vecScale = 0.5:0.5:10;
+vecScale = 1:1:15;
 varyBPrice(m_matrix, maxIterate,tolerance, sampleSize,numMonteCarlo,sigma,pBlocked,vecScale);
 
 %Test sigma
