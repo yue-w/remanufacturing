@@ -33,35 +33,47 @@ numMonteCarlo = 1;
 sigma = 0.1;
 
 
-%Test the sample size
-%The maximumn sample size
-maxSampleSize = 100;
-stepSampleSize = 10;
-initSampleSize = 10;
+% %Test the sample size
+% %The maximumn sample size
+% maxSampleSize = 30;
+% stepSampleSize = 2;
+% initSampleSize = 1;
+% pBlocked = 0.2;
+% varySampleSize(m_matrix, maxIterate,tolerance,pBlocked,maxSampleSize,stepSampleSize,initSampleSize,numMonteCarlo,sigma);
+
+% %Test the probability of missing
+% sampleSize = 20;
+% pVec = 0:0.05:1;
+% varyP(m_matrix, maxIterate,tolerance, sampleSize,numMonteCarlo,sigma,pVec);
+% 
+% 
+% %Test the holding cost (storage cost)
+% pBlocked = 0.2;
+% sampleSize = 20;
+% scVec = 0:0.05:0.6;
+% varySC(m_matrix, maxIterate,tolerance, sampleSize,numMonteCarlo,sigma,pBlocked,scVec);
+
+% %Test the buying price
+% pBlocked = 0.2;
+% sampleSize = 20;
+% vecScale = 1:1:15;
+% varyBPrice(m_matrix, maxIterate,tolerance, sampleSize,numMonteCarlo,sigma,pBlocked,vecScale);
+
+% %Test sigma
+% pBlocked = 0.2;
+% sampleSize = 20;
+% vecSigma = 0:0.05:0.5;
+% varySigma(m_matrix, maxIterate,tolerance, sampleSize,numMonteCarlo,vecSigma,pBlocked)
+
+%Count the categories
+sampleSize = 10;
 pBlocked = 0.2;
-varySampleSize(m_matrix, maxIterate,tolerance,pBlocked,maxSampleSize,stepSampleSize,initSampleSize,numMonteCarlo,sigma);
+[countOpt, countRand] = countScoreCategory(m_matrix, maxIterate,tolerance, sampleSize,numMonteCarlo,sigma,pBlocked);
+figure
+histogram(countOpt);
+histogram(countRand);
 
-%Test the probability of missing
-sampleSize = 20;
-pVec = 0:0.05:1;
-varyP(m_matrix, maxIterate,tolerance, sampleSize,numMonteCarlo,sigma,pVec);
+resultVector = [countOpt; countRand];
+writeFile(resultVector, 'histo')
 
-
-%Test the holding cost (storage cost)
-pBlocked = 0.2;
-sampleSize = 20;
-scVec = 0:0.05:0.6;
-varySC(m_matrix, maxIterate,tolerance, sampleSize,numMonteCarlo,sigma,pBlocked,scVec);
-
-%Test the buying price
-pBlocked = 0.2;
-sampleSize = 20;
-vecScale = 1:1:15;
-varyBPrice(m_matrix, maxIterate,tolerance, sampleSize,numMonteCarlo,sigma,pBlocked,vecScale);
-
-%Test sigma
-pBlocked = 0.2;
-sampleSize = 20;
-vecSigma = 0:0.05:0.5;
-varySigma(m_matrix, maxIterate,tolerance, sampleSize,numMonteCarlo,vecSigma,pBlocked)
 
