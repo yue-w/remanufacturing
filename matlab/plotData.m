@@ -7,7 +7,7 @@ close all
 lineWidth = 1;
 legendX = 5.9;
 legendY = 6.8;
-legend1 = 'Quality-based';
+legend1 = 'CORS';
 legend2 ='Exhaustive';
 yLabel='Average score, ';
 %     %Current directory
@@ -38,97 +38,97 @@ yLabel='Average score, ';
     legendPosition = [legendX legendY 0.001 0.01];% Define the position and dimensions of the legend
     setFigProperty(nameFig,xLabel,yLabel,xLim,xTick,yLim, yTick,legend1,legend2, legendPosition);
     
-%     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%Price of new components
-%     nameN = 'resultBuyingPrice.csv';
-%     nameFig = 'BuyingPrice';
-%     directoryN = strcat(directory,nameN);
-%     dataN = csvread(directoryN) ;
-%     xValue = dataN(1,:);
-%     optScoreN =  dataN(2,:);
-%     randNScore =  dataN(3,:);
-%     figure
-%     % colorOpt = [1, 0, 0];
-%     % colorRand = [0, 0, 1];
-%     plot(xValue,optScoreN,'r-o','LineWidth',lineWidth);
-%       hold on
-%       plot(xValue,randNScore,'b-o','LineWidth',lineWidth);
-%     %Adjust the figure
-%     xLabel='Scale ratio';
-%     xLim = [min(xValue) max(xValue)];%X axis label range
-%     xTick = min(xValue):1:max(xValue);%X axis step
-%     yLim = [0 16];
-%     yTick = 0:2:16;
-%     legendPosition = [legendX legendY 0.001 0.01];% Define the position and dimensions of the legend
-%     setFigProperty(nameFig,xLabel,yLabel,xLim,xTick,yLim, yTick,legend1,legend2, legendPosition);
-%  
-% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Missing probability
-%     nameN = 'resultP.csv';
-%     nameFig = 'missingProb';
-%     directoryN = strcat(directory,nameN);
-%     dataN = csvread(directoryN) ;
-%     xValue = dataN(1,:);
-%     optScoreN =  dataN(2,:);
-%     randNScore =  dataN(3,:);
-%     figure
-%     % colorOpt = [1, 0, 0];
-%     % colorRand = [0, 0, 1];
-%     plot(xValue,optScoreN,'r-o','LineWidth',lineWidth);
-%       hold on
-%       plot(xValue,randNScore,'b-o','LineWidth',lineWidth);     
-%     %Adjust the figure
-%     xLabel='Componenet missing probability, \itp';
-%     xLim = [min(xValue) max(xValue)];%X axis label range
-%     xTick = min(xValue):(xValue(3)-xValue(1)):max(xValue);%X axis step
-%     yLim = [5 15];
-%     yTick = 5:1:15;
-%     legendPosition = [legendX legendY 0.001 0.01];% Define the position and dimensions of the legend
-%     setFigProperty(nameFig,xLabel,yLabel,xLim,xTick,yLim, yTick,legend1,legend2, legendPosition);
-%  
-% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Holding cost
-%     nameN = 'resultSC.csv';
-%      nameFig = 'holdingCost';
-%     directoryN = strcat(directory,nameN);
-%     dataN = csvread(directoryN) ;
-%     xValue = dataN(1,:);
-%     optScoreN =  dataN(2,:);
-%     randNScore =  dataN(3,:);
-%     figure
-%     % colorOpt = [1, 0, 0];
-%     % colorRand = [0, 0, 1];
-%     plot(xValue,optScoreN,'r-o','LineWidth',lineWidth);
-%     hold on
-%     plot(xValue,randNScore,'b-o','LineWidth',lineWidth);
-%      %Adjust the figure
-%     xLabel='{Holding cost, \itd}({\ith,k})';
-%     xLim = [min(xValue) max(xValue)];%X axis label range
-%     xTick = min(xValue):(xValue(3)-xValue(1)):max(xValue);%X axis step
-%     yLim = [9 16];
-%     yTick = 9:1:16;
-%     legendPosition = [legendX legendY 0.001 0.01];% Define the position and dimensions of the legend
-%     setFigProperty(nameFig,xLabel,yLabel,xLim,xTick,yLim, yTick,legend1,legend2, legendPosition);   
-% 
-% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% sigma
-%     nameN = 'resultSigma.csv';
-%      nameFig = 'Sigma';
-%     directoryN = strcat(directory,nameN);
-%     dataN = csvread(directoryN) ;
-%     xValue = dataN(1,:);
-%     optScoreN =  dataN(2,:);
-%     randNScore =  dataN(3,:);
-%     figure
-%     % colorOpt = [1, 0, 0];
-%     % colorRand = [0, 0, 1];
-%      plot(xValue,optScoreN,'r-o','LineWidth',lineWidth);
-%      hold on
-%      plot(xValue,randNScore,'b-o','LineWidth',lineWidth);
-%     %Adjust the figure
-%     xLabel='Standard deviation, \sigma';
-%     xLim = [min(xValue) max(xValue)];%X axis label range
-%     xTick = min(xValue):(xValue(4)-xValue(1)):max(xValue);%X axis step
-%     yLim = [8 15];
-%     yTick = 8:1:15;
-%     legendPosition = [legendX legendY 0.001 0.01];% Define the position and dimensions of the legend
-%     setFigProperty(nameFig,xLabel,yLabel,xLim,xTick,yLim, yTick,legend1,legend2, legendPosition);
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%Price of new components
+    nameN = 'resultBuyingPrice.csv';
+    nameFig = 'BuyingPrice';
+    directoryN = strcat(directory,nameN);
+    dataN = csvread(directoryN) ;
+    xValue = dataN(1,:);
+    optScoreN =  dataN(2,:);
+    randNScore =  dataN(3,:);
+    figure
+    % colorOpt = [1, 0, 0];
+    % colorRand = [0, 0, 1];
+    plot(xValue,optScoreN,'r-o','LineWidth',lineWidth);
+      hold on
+      plot(xValue,randNScore,'b-o','LineWidth',lineWidth);
+    %Adjust the figure
+    xLabel='Scale ratio';
+    xLim = [min(xValue) max(xValue)];%X axis label range
+    xTick = min(xValue):1:max(xValue);%X axis step
+    yLim = [0 16];
+    yTick = 0:2:16;
+    legendPosition = [legendX legendY 0.001 0.01];% Define the position and dimensions of the legend
+    setFigProperty(nameFig,xLabel,yLabel,xLim,xTick,yLim, yTick,legend1,legend2, legendPosition);
+ 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Missing probability
+    nameN = 'resultP.csv';
+    nameFig = 'missingProb';
+    directoryN = strcat(directory,nameN);
+    dataN = csvread(directoryN) ;
+    xValue = dataN(1,:);
+    optScoreN =  dataN(2,:);
+    randNScore =  dataN(3,:);
+    figure
+    % colorOpt = [1, 0, 0];
+    % colorRand = [0, 0, 1];
+    plot(xValue,optScoreN,'r-o','LineWidth',lineWidth);
+      hold on
+      plot(xValue,randNScore,'b-o','LineWidth',lineWidth);     
+    %Adjust the figure
+    xLabel='Componenet missing probability, \itp';
+    xLim = [min(xValue) max(xValue)];%X axis label range
+    xTick = min(xValue):(xValue(3)-xValue(1)):max(xValue);%X axis step
+    yLim = [5 15];
+    yTick = 5:1:15;
+    legendPosition = [legendX legendY 0.001 0.01];% Define the position and dimensions of the legend
+    setFigProperty(nameFig,xLabel,yLabel,xLim,xTick,yLim, yTick,legend1,legend2, legendPosition);
+ 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Holding cost
+    nameN = 'resultSC.csv';
+     nameFig = 'holdingCost';
+    directoryN = strcat(directory,nameN);
+    dataN = csvread(directoryN) ;
+    xValue = dataN(1,:);
+    optScoreN =  dataN(2,:);
+    randNScore =  dataN(3,:);
+    figure
+    % colorOpt = [1, 0, 0];
+    % colorRand = [0, 0, 1];
+    plot(xValue,optScoreN,'r-o','LineWidth',lineWidth);
+    hold on
+    plot(xValue,randNScore,'b-o','LineWidth',lineWidth);
+     %Adjust the figure
+    xLabel='{Inventory cost, \itd}({\ith,k})';
+    xLim = [min(xValue) max(xValue)];%X axis label range
+    xTick = min(xValue):(xValue(3)-xValue(1)):max(xValue);%X axis step
+    yLim = [9 16];
+    yTick = 9:1:16;
+    legendPosition = [legendX legendY 0.001 0.01];% Define the position and dimensions of the legend
+    setFigProperty(nameFig,xLabel,yLabel,xLim,xTick,yLim, yTick,legend1,legend2, legendPosition);   
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% sigma
+    nameN = 'resultSigma.csv';
+     nameFig = 'Sigma';
+    directoryN = strcat(directory,nameN);
+    dataN = csvread(directoryN) ;
+    xValue = dataN(1,:);
+    optScoreN =  dataN(2,:);
+    randNScore =  dataN(3,:);
+    figure
+    % colorOpt = [1, 0, 0];
+    % colorRand = [0, 0, 1];
+     plot(xValue,optScoreN,'r-o','LineWidth',lineWidth);
+     hold on
+     plot(xValue,randNScore,'b-o','LineWidth',lineWidth);
+    %Adjust the figure
+    xLabel='Standard deviation, \sigma';
+    xLim = [min(xValue) max(xValue)];%X axis label range
+    xTick = min(xValue):(xValue(4)-xValue(1)):max(xValue);%X axis step
+    yLim = [8 15];
+    yTick = 8:1:15;
+    legendPosition = [legendX legendY 0.001 0.01];% Define the position and dimensions of the legend
+    setFigProperty(nameFig,xLabel,yLabel,xLim,xTick,yLim, yTick,legend1,legend2, legendPosition);
 
 end
 

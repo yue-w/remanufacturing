@@ -47,10 +47,10 @@ sigma = 0.1;
 % varyP(m_matrix, maxIterate,tolerance, sampleSize,numMonteCarlo,sigma,pVec);
 % 
 % 
-% %Test the holding cost (storage cost)
+%Test the holding cost (storage cost)
 % pBlocked = 0.2;
 % sampleSize = 20;
-% scVec = 0:0.05:0.6;
+% scVec = 0:0.05:1;
 % varySC(m_matrix, maxIterate,tolerance, sampleSize,numMonteCarlo,sigma,pBlocked,scVec);
 
 % %Test the buying price
@@ -66,14 +66,14 @@ sigma = 0.1;
 % varySigma(m_matrix, maxIterate,tolerance, sampleSize,numMonteCarlo,vecSigma,pBlocked)
 
 %Count the categories
-sampleSize = 10;
-pBlocked = 0.2;
-[countOpt, countRand] = countScoreCategory(m_matrix, maxIterate,tolerance, sampleSize,numMonteCarlo,sigma,pBlocked);
-figure
-histogram(countOpt);
-histogram(countRand);
-
-resultVector = [countOpt; countRand];
-writeFile(resultVector, 'histo')
+% sampleSize = 10;
+% pBlocked = 0.2;
+% [countOpt, countRand] = countScoreCategory(m_matrix, maxIterate,tolerance, sampleSize,numMonteCarlo,sigma,pBlocked);
+% figure
+% histogram(countOpt);
+% histogram(countRand);
+% 
+% resultVector = [countOpt; countRand];
+% writeFile(resultVector, 'histo')
 
 

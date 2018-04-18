@@ -6,13 +6,14 @@ function varySC(m_matrix, maxIterate,tolerance, sampleSize,NUM,sigma,pBlocked,sc
     aveTotalScoreOpt = zeros(1,expNum);
     aveTotalScoreNon = zeros(1,expNum);
     index = 1;
-    
+    scale = 4;
     for sc = scVec
         totalScoreOpt = 0;
         totalScoreNon = 0;  
         %Average samples
         for i = 1:sampleSize
             m_matrix = initMatrix(m_matrix,pBlocked);
+            m_matrix = setBuyingPrice(m_matrix,scale);
             [m_matrix, ~, scoreBeforeOpt, scoreAfterOpt]= iterate(m_matrix,maxIterate,discount,tolerance,NUM,sigma);
            totalScoreOpt = totalScoreOpt + scoreAfterOpt;
            totalScoreNon = totalScoreNon + scoreBeforeOpt;            
